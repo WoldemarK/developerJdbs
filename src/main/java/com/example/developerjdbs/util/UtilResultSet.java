@@ -1,8 +1,8 @@
-package com.example.developer.util;
+package com.example.developerjdbs.util;
 
-import com.example.developer.model.Developer;
-import com.example.developer.model.Skill;
-import com.example.developer.model.Specialty;
+import com.example.developerjdbs.model.Developer;
+import com.example.developerjdbs.model.Skill;
+import com.example.developerjdbs.model.Specialty;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -58,7 +58,7 @@ public class UtilResultSet {
                 .build();
     }
 
-    // TODO this only Developer
+    //TODO this only Developer
     public Developer onlyDeveloper(ResultSet resultSet) throws SQLException {
         return Developer.builder()
                 .id(resultSet.getLong("id"))
@@ -74,7 +74,7 @@ public class UtilResultSet {
                 .build();
     }
 
-    // TODO this only Specialty
+    //TODO this only Specialty
     public Specialty onlySpecialty(ResultSet resultSet) throws SQLException {
         return Specialty.builder()
                 .id(resultSet.getLong("id"))
@@ -88,7 +88,7 @@ public class UtilResultSet {
                 .build();
     }
 
-    // TODO this only Skill
+    //TODO this only Skill
     public Skill onlySkillById(ResultSet resultSet, Long id) throws SQLException {
         return Skill.builder()
                 .id(id)

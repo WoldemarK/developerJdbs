@@ -1,6 +1,6 @@
-package com.example.developer.repository;
+package com.example.developerjdbs.repository;
 
-import com.example.developer.model.Skill;
+import com.example.developerjdbs.model.Skill;
 
 public interface SkillRepository extends GenericRepository<Skill,Long>{
 }

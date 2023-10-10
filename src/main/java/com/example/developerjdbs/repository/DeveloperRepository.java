@@ -1,6 +1,6 @@
-package com.example.developer.repository;
+package com.example.developerjdbs.repository;
 
-import com.example.developer.model.Developer;
+import com.example.developerjdbs.model.Developer;
 
 public interface DeveloperRepository extends GenericRepository<Developer,Long> {
 

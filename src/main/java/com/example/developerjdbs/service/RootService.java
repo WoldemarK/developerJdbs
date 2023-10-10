@@ -1,13 +1,12 @@
-package com.example.developer.service;
-
-import com.example.developer.config.ConfigDataSource;
-import com.example.developer.model.Developer;
-import com.example.developer.model.Skill;
-import com.example.developer.model.Specialty;
-import com.example.developer.repository.jdbc.JdbcDeveloperRepositoryImpl;
-import com.example.developer.repository.jdbc.JdbcSkillRepositoryImpl;
-import com.example.developer.repository.jdbc.JdbcSpecialtyRepositoryImpl;
-import com.example.developer.util.UtilResultSet;
+package com.example.developerjdbs.service;
+import com.example.developerjdbs.config.ConfigDataSource;
+import com.example.developerjdbs.model.Developer;
+import com.example.developerjdbs.model.Skill;
+import com.example.developerjdbs.model.Specialty;
+import com.example.developerjdbs.repository.jdbc.JdbcDeveloperRepositoryImpl;
+import com.example.developerjdbs.repository.jdbc.JdbcSkillRepositoryImpl;
+import com.example.developerjdbs.repository.jdbc.JdbcSpecialtyRepositoryImpl;
+import com.example.developerjdbs.util.UtilResultSet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional;;
 
 @Service
 @RequiredArgsConstructor

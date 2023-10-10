@@ -1,4 +1,4 @@
-package com.example.developer.model;
+package com.example.developerjdbs.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

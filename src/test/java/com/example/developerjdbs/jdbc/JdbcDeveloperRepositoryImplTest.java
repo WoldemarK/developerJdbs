@@ -1,22 +1,42 @@
-package com.example.developer.jdbc;
+package com.example.developerjdbs.jdbc;
 
-import com.example.developer.model.Developer;
-import org.junit.Before;
+
+import com.example.developerjdbs.config.ConfigDataSource;
+import com.example.developerjdbs.model.Developer;
+import com.example.developerjdbs.repository.jdbc.JdbcDeveloperRepositoryImpl;
+import com.example.developerjdbs.util.UtilResultSet;
+import lombok.RequiredArgsConstructor;
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.mockito.Mock;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import static org.junit.Assert.*;
+
+@RequiredArgsConstructor
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class JdbcDeveloperRepositoryImplTest {
+@Mock
+    private JdbcDeveloperRepositoryImpl developerRepository;
+    @Mock
+    private ConfigDataSource dataSource;
+    @Mock
+    private UtilResultSet resultSet;
 
-    Developer developer = new Developer();
 
-    @Before
-    public void setUp(){
-        developer.setFirstName("FFF");
-        developer.setLastName("LLL");
+    @BeforeEach
+    void prepare() {
+        developerRepository = new JdbcDeveloperRepositoryImpl(dataSource, resultSet);
     }
-    @Test
-    public void shouldCreateDeveloperInstanceTest(){
 
-//        assertEquals("FFF", developer.getLastName());
-//        assertEquals("LLL", developer.getLastName());
+    @Test
+    void usersEmptyIfNoUserAdded() throws SQLException {
+    List<Developer>developers=developerRepository.getAll();
+
+
     }
 }

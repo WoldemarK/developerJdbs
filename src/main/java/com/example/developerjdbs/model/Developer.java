@@ -1,5 +1,4 @@
-package com.example.developer.model;
-
+package com.example.developerjdbs.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +9,6 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Setter
 @Getter
@@ -29,9 +27,9 @@ public class Developer {
 
     private List<Skill> skills;
 
-    public void addSkill(Skill skill){
-        if (this.skills==null)
-            this.skills=new ArrayList<>();
+    public void addSkill(Skill skill) {
+        if (this.skills == null)
+            this.skills = new ArrayList<>();
         this.skills.add(skill);
     }
 

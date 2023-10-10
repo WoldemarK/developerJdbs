@@ -1,5 +1,4 @@
-package com.example.developer.model;
-
+package com.example.developerjdbs.model;
 public enum Status {
     ACTIVE,
     DELETED

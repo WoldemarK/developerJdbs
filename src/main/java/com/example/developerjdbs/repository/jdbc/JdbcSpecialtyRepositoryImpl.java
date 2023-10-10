@@ -1,12 +1,11 @@
-package com.example.developer.repository.jdbc;
+package com.example.developerjdbs.repository.jdbc;
 
-import com.example.developer.config.ConfigDataSource;
-import com.example.developer.model.Specialty;
-import com.example.developer.repository.SpecialtyRepository;
-import com.example.developer.util.UtilResultSet;
+import com.example.developerjdbs.config.ConfigDataSource;
+import com.example.developerjdbs.model.Specialty;
+import com.example.developerjdbs.repository.SpecialtyRepository;
+import com.example.developerjdbs.util.UtilResultSet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

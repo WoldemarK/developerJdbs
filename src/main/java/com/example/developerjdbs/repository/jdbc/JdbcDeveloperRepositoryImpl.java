@@ -1,9 +1,9 @@
-package com.example.developer.repository.jdbc;
+package com.example.developerjdbs.repository.jdbc;
 
-import com.example.developer.config.ConfigDataSource;
-import com.example.developer.model.Developer;
-import com.example.developer.repository.DeveloperRepository;
-import com.example.developer.util.UtilResultSet;
+import com.example.developerjdbs.config.ConfigDataSource;
+import com.example.developerjdbs.model.Developer;
+import com.example.developerjdbs.repository.DeveloperRepository;
+import com.example.developerjdbs.util.UtilResultSet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +34,6 @@ public class JdbcDeveloperRepositoryImpl implements DeveloperRepository {
         statement.executeUpdate();
         return Optional.of(developer);
     }
-
     @Override
     public Optional<Developer> update(Developer developer, Long id) throws SQLException {
 
@@ -46,7 +45,6 @@ public class JdbcDeveloperRepositoryImpl implements DeveloperRepository {
 
         return Optional.of(developer);
     }
-
     @Override
     public Optional<Developer> getId(Long id) throws SQLException {
         Developer developer = null;
@@ -58,7 +56,6 @@ public class JdbcDeveloperRepositoryImpl implements DeveloperRepository {
         }
         return Optional.ofNullable(developer);
     }
-
     @Override
     public List<Developer> getAll() throws SQLException {
         List<Developer> developers = new ArrayList<>();

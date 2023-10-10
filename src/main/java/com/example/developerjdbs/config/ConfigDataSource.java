@@ -1,4 +1,4 @@
-package com.example.developer.config;
+package com.example.developerjdbs.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
