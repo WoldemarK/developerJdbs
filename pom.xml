@@ -20,7 +20,7 @@
         <org.liquibase.version>4.22.0</org.liquibase.version>
         <org.postgresq.versionl>42.6.0</org.postgresq.versionl>
         <org.assertj.versionl>3.4.1</org.assertj.versionl>
-        <junit.versionl>4.12</junit.versionl>
+        <junit.versionl>4.13.1</junit.versionl>
         <org.mockito.versionl>4.5.1</org.mockito.versionl>
         <org.junit.platform.versionl>1.9.3</org.junit.platform.versionl>
         <org.junit.jupiter.versionl>5.8.2</org.junit.jupiter.versionl>
