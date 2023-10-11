@@ -57,38 +57,37 @@ public class RootService {
             group by d.id, d.firstname, d.lastname, s.name, sp.name having d.id=?
             """;
 
-    public List<Developer> allInformation() throws SQLException {
+    public List<Developer> allInformation() {
         List<Developer> developers = new ArrayList<>();
-        PreparedStatement statement = dataSource.statement(GET_ALL_INFORMATION);
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            developers.add(utilResultSet.convertAll(resultSet));
+        try {
+            PreparedStatement statement = dataSource.statement(GET_ALL_INFORMATION);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                developers.add(utilResultSet.convertAll(resultSet));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
         }
         return developers;
     }
-    public Developer getAllInformationById(Long devId) throws SQLException {
+    public Developer getAllInformationById(Long devId) {
         Developer developer = null;
-        PreparedStatement statement = dataSource.statement(GET_DI);
-        statement.setLong(1, devId);
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            developer = utilResultSet.convertAllId(resultSet, devId);
+        try {
+            PreparedStatement statement = dataSource.statement(GET_DI);
+            statement.setLong(1, devId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                developer = utilResultSet.convertAllId(resultSet, devId);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
         }
         return developer;
     }
-    public void createDevAndSpecialty(Developer developer, Specialty specialty) {
-
-    }
-    public void createDevAndSpecialtyAndSkell(Developer developer, Specialty specialty, Skill skill) {
-
-    }
-    public void createDevAndIdSpecialtyAndIdSkill(Developer developer, Long specialtyId, Long skillId) throws SQLException {
-        Optional<Specialty> specialty = specialtyRepository.getId(specialtyId);
-        Optional<Skill> skill = skillRepository.getId(skillId);
-    }
-    public void update(Long developerId, Long specialtyId, Long skillId) throws SQLException {
+    public void update(Long developerId, Long specialtyId, Long skillId)  {
         Optional<Specialty> specialty = specialtyRepository.getId(specialtyId);
         Optional<Skill> skill = skillRepository.getId(skillId);
         Optional<Developer> developer =developerRepository.getId(developerId);
+
     }
 }

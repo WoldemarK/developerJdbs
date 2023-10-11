@@ -27,50 +27,67 @@ public class JdbcSpecialtyRepositoryImpl implements SpecialtyRepository {
     private final static String UPDATE_SPECIALTY = "update specialty set name=? where id=?";
 
     @Override
-    public Optional<Specialty> save(Specialty specialty) throws SQLException {
-        PreparedStatement statement = dataSource.statement(SAVE_SPECIALTY);
-        statement.setString(1, specialty.getName());
-        statement.executeUpdate();
+    public Optional<Specialty> save(Specialty specialty) {
+        try {
+            PreparedStatement statement = dataSource.statement(SAVE_SPECIALTY);
+            statement.setString(1, specialty.getName());
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
         return Optional.of(specialty);
     }
-
     @Override
-    public Optional<Specialty> update(Specialty specialty, Long id) throws SQLException {
-        PreparedStatement statement = dataSource.statement(UPDATE_SPECIALTY);
-        statement.setString(1, specialty.getName());
-        statement.setLong(2, id);
-        statement.executeUpdate();
+    public Optional<Specialty> update(Specialty specialty, Long id) {
+        try {
+            PreparedStatement statement = dataSource.statement(UPDATE_SPECIALTY);
+            statement.setString(1, specialty.getName());
+            statement.setLong(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return Optional.of(specialty);
     }
-
-
     @Override
-    public Optional<Specialty> getId(Long id) throws SQLException {
+    public Optional<Specialty> getId(Long id) {
         Specialty specialty = null;
-        PreparedStatement statement = dataSource.statement(GET_ID);
-        statement.setLong(1, id);
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            specialty = utilResultSet.onlySpecialtyById(resultSet, id);
+        try {
+            PreparedStatement statement = dataSource.statement(GET_ID);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                specialty = utilResultSet.onlySpecialtyById(resultSet, id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return Optional.ofNullable(specialty);
     }
-
     @Override
-    public List<Specialty> getAll() throws SQLException {
+    public List<Specialty> getAll() {
         List<Specialty> specialties = new ArrayList<>();
-        PreparedStatement statement = dataSource.statement(GET_ALL_SPECIALTY);
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            specialties.add(utilResultSet.onlySpecialty(resultSet));
+        try {
+            PreparedStatement statement = dataSource.statement(GET_ALL_SPECIALTY);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                specialties.add(utilResultSet.onlySpecialty(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return specialties;
     }
-
     @Override
-    public void deleteById(Long id) throws SQLException {
-        PreparedStatement statement = dataSource.statement(DELETE_SPECIALTY_ID);
-        statement.setLong(1, id);
-        statement.executeUpdate();
+    public void deleteById(Long id) {
+        try {
+            PreparedStatement statement = dataSource.statement(DELETE_SPECIALTY_ID);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

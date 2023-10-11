@@ -26,48 +26,65 @@ public class JdbcSkillRepositoryImpl implements SkillRepository {
     private final static String DELETE_SKILL_ID = "delete from skill where id=?";
     private final static String UPDATE_SKILL = "update  skill set name=? where id=?";
     @Override
-    public Optional<Skill> save(Skill skill) throws SQLException {
-        PreparedStatement statement = dataSource.statement(SAVE_SKELL);
-        statement.setString(1, skill.getName());
-        statement.executeUpdate();
+    public Optional<Skill> save(Skill skill) {
+        try {
+            PreparedStatement statement = dataSource.statement(SAVE_SKELL);
+            statement.setString(1, skill.getName());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return Optional.of(skill);
-
     }
     @Override
-    public Optional<Skill> getId(Long id) throws SQLException {
+    public Optional<Skill> getId(Long id) {
         Skill skill = null;
-        PreparedStatement statement = dataSource.statement(GET_ID);
-        statement.setLong(1, id);
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            skill = utilResultSet.onlySkillById(resultSet, id);
+        try {
+            PreparedStatement statement = dataSource.statement(GET_ID);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                skill = utilResultSet.onlySkillById(resultSet, id);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
         }
         return Optional.ofNullable(skill);
     }
     @Override
-    public List<Skill> getAll() throws SQLException {
+    public List<Skill> getAll(){
         List<Skill> skills = new ArrayList<>();
-        PreparedStatement statement = dataSource.statement(GET_ALL_SILLS);
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            skills.add(utilResultSet.onlySkill(resultSet));
+        try {
+            PreparedStatement statement = dataSource.statement(GET_ALL_SILLS);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                skills.add(utilResultSet.onlySkill(resultSet));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
         }
         return skills;
     }
     @Override
-    public void deleteById(Long id) throws SQLException {
-        PreparedStatement statement = dataSource.statement(DELETE_SKILL_ID);
-        statement.setLong(1, id);
-        statement.executeUpdate();
+    public void deleteById(Long id)  {
+        try {
+            PreparedStatement statement = dataSource.statement(DELETE_SKILL_ID);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
     @Override
-    public Optional<Skill> update(Skill skill, Long id) throws SQLException {
-        PreparedStatement statement = dataSource.statement(UPDATE_SKILL);
-        statement.setString(1, skill.getName());
-        statement.setLong(2, id);
-        statement.executeUpdate();
+    public Optional<Skill> update(Skill skill, Long id) {
+        try {
+            PreparedStatement statement = dataSource.statement(UPDATE_SKILL);
+            statement.setString(1, skill.getName());
+            statement.setLong(2, id);
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return Optional.of(skill);
     }
-
-
 }

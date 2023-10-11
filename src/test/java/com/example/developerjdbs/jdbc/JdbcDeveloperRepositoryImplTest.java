@@ -1,42 +1,47 @@
 package com.example.developerjdbs.jdbc;
 
 
-import com.example.developerjdbs.config.ConfigDataSource;
-import com.example.developerjdbs.model.Developer;
 import com.example.developerjdbs.repository.jdbc.JdbcDeveloperRepositoryImpl;
-import com.example.developerjdbs.util.UtilResultSet;
-import lombok.RequiredArgsConstructor;
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.internal.verification.VerificationModeFactory;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
 
-@RequiredArgsConstructor
-@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+@ExtendWith(MockitoExtension.class)
 public class JdbcDeveloperRepositoryImplTest {
-@Mock
-    private JdbcDeveloperRepositoryImpl developerRepository;
-    @Mock
-    private ConfigDataSource dataSource;
-    @Mock
-    private UtilResultSet resultSet;
-
-
-    @BeforeEach
-    void prepare() {
-        developerRepository = new JdbcDeveloperRepositoryImpl(dataSource, resultSet);
-    }
-
     @Test
-    void usersEmptyIfNoUserAdded() throws SQLException {
-    List<Developer>developers=developerRepository.getAll();
+    public void testMethod() {
+        @SuppressWarnings("unchecked")
+        List<String> mockedList = Mockito.mock(List.class);
 
+        mockedList.add("first-element");
+        mockedList.add("second-element");
+        mockedList.add("third-element");
+        mockedList.add("third-element");
+        mockedList.clear();
 
+        verify(mockedList).add("first-element");
+        verify(mockedList).add("second-element");
+        verify(mockedList, VerificationModeFactory.times(2)).add("third-element");
+
+        verify(mockedList).clear();
     }
+    @ExtendWith(MockitoExtension.class)
+
+        @Test
+        public void whenNotUseMockAnnotation_thenCorrect() {
+            List mockList = Mockito.mock(ArrayList.class);
+            //эти методы не будут ничего делать – это заглушки
+            mockList.add("one");
+            mockList.add("two");
+        }
+
 }
