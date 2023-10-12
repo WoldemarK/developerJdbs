@@ -16,9 +16,9 @@ import java.util.Objects;
 @PropertySource("classpath:database.properties")
 public class ConfigDataSource {
 
-    private final Environment environment;
+    private static final Environment environment = null;
     private static Connection connection = null;
-    public Connection getConnection() {
+    private static Connection getConnection() {
         try {
             connection = DriverManager.getConnection
                     (
@@ -30,7 +30,7 @@ public class ConfigDataSource {
         }
         return connection;
     }
-    public PreparedStatement statement(String sql) throws SQLException {
+    public static PreparedStatement statement(String sql) throws SQLException {
        connection = getConnection();
         return connection.prepareStatement(sql);
     }

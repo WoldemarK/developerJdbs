@@ -1,5 +1,6 @@
-package com.example.developerjdbs.service;
-import com.example.developerjdbs.config.ConfigDataSource;
+package com.example.developerjdbs.repository.jdbc;
+
+
 import com.example.developerjdbs.model.Developer;
 import com.example.developerjdbs.model.Skill;
 import com.example.developerjdbs.model.Specialty;
@@ -15,18 +16,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;;
+import java.util.Optional;
+import static com.example.developerjdbs.config.ConfigDataSource.*;
 
 @Service
 @RequiredArgsConstructor
-public class RootService {
+public class JdbcAllInformation {
 
     private final JdbcSkillRepositoryImpl skillRepository;
     private final JdbcDeveloperRepositoryImpl developerRepository;
     private final JdbcSpecialtyRepositoryImpl specialtyRepository;
     private final UtilResultSet utilResultSet;
-    private final ConfigDataSource dataSource;
-
     private final static String GET_ALL_INFORMATION = """
             select
             d.id,
@@ -59,35 +59,36 @@ public class RootService {
 
     public List<Developer> allInformation() {
         List<Developer> developers = new ArrayList<>();
-        try {
-            PreparedStatement statement = dataSource.statement(GET_ALL_INFORMATION);
+        try (PreparedStatement statement = statement(GET_ALL_INFORMATION)) {
             ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
                 developers.add(utilResultSet.convertAll(resultSet));
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return developers;
     }
+
     public Developer getAllInformationById(Long devId) {
         Developer developer = null;
-        try {
-            PreparedStatement statement = dataSource.statement(GET_DI);
+        try (PreparedStatement statement = statement(GET_DI)) {
             statement.setLong(1, devId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 developer = utilResultSet.convertAllId(resultSet, devId);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return developer;
     }
-    public void update(Long developerId, Long specialtyId, Long skillId)  {
+
+    public void update(Long developerId, Long specialtyId, Long skillId) {
         Optional<Specialty> specialty = specialtyRepository.getId(specialtyId);
         Optional<Skill> skill = skillRepository.getId(skillId);
-        Optional<Developer> developer =developerRepository.getId(developerId);
+        Optional<Developer> developer = developerRepository.getId(developerId);
 
     }
 }

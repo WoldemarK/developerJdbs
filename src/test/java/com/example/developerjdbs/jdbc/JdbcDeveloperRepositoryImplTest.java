@@ -1,47 +1,32 @@
 package com.example.developerjdbs.jdbc;
 
 
+import com.example.developerjdbs.model.Developer;
 import com.example.developerjdbs.repository.jdbc.JdbcDeveloperRepositoryImpl;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.internal.verification.VerificationModeFactory;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(MockitoExtension.class)
 public class JdbcDeveloperRepositoryImplTest {
+    @Spy
+    private JdbcDeveloperRepositoryImpl developerRepository;
+
     @Test
-    public void testMethod() {
-        @SuppressWarnings("unchecked")
-        List<String> mockedList = Mockito.mock(List.class);
+    void getAllDevelopers() {
+        developerRepository.getAll();
 
-        mockedList.add("first-element");
-        mockedList.add("second-element");
-        mockedList.add("third-element");
-        mockedList.add("third-element");
-        mockedList.clear();
-
-        verify(mockedList).add("first-element");
-        verify(mockedList).add("second-element");
-        verify(mockedList, VerificationModeFactory.times(2)).add("third-element");
-
-        verify(mockedList).clear();
     }
-    @ExtendWith(MockitoExtension.class)
 
-        @Test
-        public void whenNotUseMockAnnotation_thenCorrect() {
-            List mockList = Mockito.mock(ArrayList.class);
-            //эти методы не будут ничего делать – это заглушки
-            mockList.add("one");
-            mockList.add("two");
-        }
-
+    @Test
+    void getDeveloperById() {
+        Optional<Developer> someDeveloper = developerRepository.getId(1L);
+        assertFalse(someDeveloper.isPresent());
+    }
 }

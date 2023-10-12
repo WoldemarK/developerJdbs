@@ -18,30 +18,25 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class JdbcSpecialtyRepositoryImpl implements SpecialtyRepository {
 
-    private final ConfigDataSource dataSource;
     private final UtilResultSet utilResultSet;
     private final static String GET_ALL_SPECIALTY = "select id, name as SPECIALTY from specialty";
     private final static String SAVE_SPECIALTY = "insert into specialty(name)values (?)";
     private final static String GET_ID = "select * from specialty where id=?";
     private final static String DELETE_SPECIALTY_ID = "delete from specialty where id=?";
     private final static String UPDATE_SPECIALTY = "update specialty set name=? where id=?";
-
     @Override
     public Optional<Specialty> save(Specialty specialty) {
-        try {
-            PreparedStatement statement = dataSource.statement(SAVE_SPECIALTY);
+        try (PreparedStatement statement = ConfigDataSource.statement(SAVE_SPECIALTY)){
             statement.setString(1, specialty.getName());
             statement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
         }
-
         return Optional.of(specialty);
     }
     @Override
     public Optional<Specialty> update(Specialty specialty, Long id) {
-        try {
-            PreparedStatement statement = dataSource.statement(UPDATE_SPECIALTY);
+        try (PreparedStatement statement = ConfigDataSource.statement(UPDATE_SPECIALTY)){
             statement.setString(1, specialty.getName());
             statement.setLong(2, id);
             statement.executeUpdate();
@@ -54,8 +49,7 @@ public class JdbcSpecialtyRepositoryImpl implements SpecialtyRepository {
     @Override
     public Optional<Specialty> getId(Long id) {
         Specialty specialty = null;
-        try {
-            PreparedStatement statement = dataSource.statement(GET_ID);
+        try(PreparedStatement statement = ConfigDataSource.statement(GET_ID)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -69,8 +63,7 @@ public class JdbcSpecialtyRepositoryImpl implements SpecialtyRepository {
     @Override
     public List<Specialty> getAll() {
         List<Specialty> specialties = new ArrayList<>();
-        try {
-            PreparedStatement statement = dataSource.statement(GET_ALL_SPECIALTY);
+        try(PreparedStatement statement = ConfigDataSource.statement(GET_ALL_SPECIALTY)){
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 specialties.add(utilResultSet.onlySpecialty(resultSet));
@@ -82,8 +75,7 @@ public class JdbcSpecialtyRepositoryImpl implements SpecialtyRepository {
     }
     @Override
     public void deleteById(Long id) {
-        try {
-            PreparedStatement statement = dataSource.statement(DELETE_SPECIALTY_ID);
+        try(PreparedStatement statement = ConfigDataSource.statement(DELETE_SPECIALTY_ID)) {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
