@@ -2,9 +2,7 @@ package com.example.developerjdbs.repository.jdbc;
 
 import com.example.developerjdbs.model.Developer;
 import com.example.developerjdbs.repository.DeveloperRepository;
-import com.example.developerjdbs.util.UtilResultSet;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,19 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.developerjdbs.config.ConfigDataSource.*;
+import static com.example.developerjdbs.config.ConfigDataSource.statement;
+import static com.example.developerjdbs.util.UtilResultSet.onlyDeveloper;
+import static com.example.developerjdbs.util.UtilResultSet.onlyDeveloperById;
 
-@Component
 @RequiredArgsConstructor
 public class JdbcDeveloperRepositoryImpl implements DeveloperRepository {
 
-    private final UtilResultSet utilResultSet;
     private final static String GET_ALL_DEV = "select id, firstName, lastName from developer";
     private final static String SAVE_DEV = "insert into developer(firstName,lastName)values (?,?)";
     private final static String GET_ID = "select firstName,lastName from developer where id=?";
     private final static String DELETE_DEV_ID = "delete from developer where id=?";
     private final static String UPDATE_DEV = "update developer set firstname =?, lastname=? where id=?";
-
     @Override
     public Optional<Developer> save(Developer developer) {
         try (PreparedStatement statement = statement(SAVE_DEV)) {
@@ -37,7 +34,6 @@ public class JdbcDeveloperRepositoryImpl implements DeveloperRepository {
         }
         return Optional.of(developer);
     }
-
     @Override
     public Optional<Developer> update(Developer developer, Long id) {
         try (PreparedStatement statement = statement(UPDATE_DEV)) {
@@ -50,7 +46,6 @@ public class JdbcDeveloperRepositoryImpl implements DeveloperRepository {
         }
         return Optional.of(developer);
     }
-
     @Override
     public Optional<Developer> getId(Long id) {
         Developer developer = null;
@@ -58,21 +53,20 @@ public class JdbcDeveloperRepositoryImpl implements DeveloperRepository {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                developer = utilResultSet.onlyDeveloperById(resultSet, id);
+                developer = onlyDeveloperById(resultSet,id);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return Optional.ofNullable(developer);
     }
-
     @Override
     public List<Developer> getAll() {
         List<Developer> developers = new ArrayList<>();
         try (PreparedStatement statement = statement(GET_ALL_DEV)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                developers.add(utilResultSet.onlyDeveloper(resultSet));
+                developers.add(onlyDeveloper(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -20,17 +19,13 @@ public class Developer {
 
     private Long id;
     private String firstName;
-
     private String lastName;
-
     private Specialty specialty;
-
     private List<Skill> skills;
 
-    public void addSkill(Skill skill) {
-        if (this.skills == null)
-            this.skills = new ArrayList<>();
-        this.skills.add(skill);
+    public Developer(Long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
-
 }
