@@ -1,8 +1,6 @@
 package com.example.developerjdbs.repository.jdbc;
 
-
 import com.example.developerjdbs.model.Developer;
-import com.example.developerjdbs.model.Skill;
 import com.example.developerjdbs.model.Specialty;
 import lombok.RequiredArgsConstructor;
 
@@ -20,9 +18,6 @@ import static com.example.developerjdbs.util.UtilResultSet.convertAllId;
 @RequiredArgsConstructor
 public class JdbcAllInformation {
 
-    private final JdbcSkillRepositoryImpl skillRepository;
-    private final JdbcDeveloperRepositoryImpl developerRepository;
-    private final JdbcSpecialtyRepositoryImpl specialtyRepository;
     private final static String GET_ALL_INFORMATION = """
             select
             d.id,
@@ -52,7 +47,6 @@ public class JdbcAllInformation {
                 and ds.skillid=sp.id
             group by d.id, d.firstname, d.lastname, s.name, sp.name having d.id=?
             """;
-
     public List<Developer> allInformation() {
         List<Developer> developers = new ArrayList<>();
         try (PreparedStatement statement = statement(GET_ALL_INFORMATION)) {
@@ -79,10 +73,19 @@ public class JdbcAllInformation {
         }
         return developer;
     }
-    public void update(Long developerId, Long specialtyId, Long skillId) {
-        Optional<Specialty> specialty = specialtyRepository.getId(specialtyId);
-        Optional<Skill> skill = skillRepository.getId(skillId);
-        Optional<Developer> developer = developerRepository.getId(developerId);
+    public Developer createDevAndAppointSpecialtyId(Developer developer, Long specialtyId) {
+        Optional<Specialty> specialty = new JdbcSpecialtyRepositoryImpl().getId(specialtyId);
+        try (PreparedStatement statement = statement("insert into developer(firstName,lastName,specialtyid)values (?,?,?)")) {
+            statement.setString(1, developer.getFirstName());
+            statement.setString(2, developer.getLastName());
+            developer.setSpecialty(specialty.get());
+            statement.setLong(3, developer.getSpecialty().getId());
+            statement.executeUpdate();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return developer;
     }
+
 }

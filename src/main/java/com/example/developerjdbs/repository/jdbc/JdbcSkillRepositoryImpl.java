@@ -3,12 +3,14 @@ package com.example.developerjdbs.repository.jdbc;
 import com.example.developerjdbs.model.Skill;
 import com.example.developerjdbs.repository.SkillRepository;
 import lombok.RequiredArgsConstructor;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import static com.example.developerjdbs.config.ConfigDataSource.statement;
 import static com.example.developerjdbs.util.UtilResultSet.onlySkill;
 import static com.example.developerjdbs.util.UtilResultSet.onlySkillById;
@@ -17,10 +19,11 @@ import static com.example.developerjdbs.util.UtilResultSet.onlySkillById;
 public class JdbcSkillRepositoryImpl implements SkillRepository {
     private final static String GET_ALL_SILLS = "select id, name as SKILL from skill";
     private final static String SAVE_SKELL = "insert into skill(name)values (?)";
-    private final static String GET_ID = "select * from skill where id=?";
+    private final static String GET_ID = "select name from skill where id=?";
     private final static String DELETE_SKILL_ID = "delete from skill where id=?";
     private final static String UPDATE_SKILL = "update  skill set name=? where id=?";
     @Override
+
     public Optional<Skill> save(Skill skill) {
         try (PreparedStatement statement = statement(SAVE_SKELL)) {
             statement.setString(1, skill.getName());

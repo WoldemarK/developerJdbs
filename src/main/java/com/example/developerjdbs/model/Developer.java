@@ -23,8 +23,7 @@ public class Developer {
     private Specialty specialty;
     private List<Skill> skills;
 
-    public Developer(Long id, String firstName, String lastName) {
-        this.id = id;
+    public Developer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }

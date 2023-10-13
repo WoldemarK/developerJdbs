@@ -63,4 +63,4 @@ insert into developer_skill(developerID, skillID) values (1,1),
                                                          (3,1),
                                                          (4,3),
                                                          (5,6),
-                                                         (6,4)
+                                                         (6,4);

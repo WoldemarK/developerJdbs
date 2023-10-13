@@ -16,7 +16,7 @@ public class SkillController {
     public Skill onlySkillById(Long id) {
         return skillRepository.getId(id).get();
     }
-    public Skill createOnlySkill( Skill skill)  {
+    public Skill createOnlySkill(Skill skill)  {
         return skillRepository.save(skill).get();
     }
     public void deleteSkillById( Long id) {

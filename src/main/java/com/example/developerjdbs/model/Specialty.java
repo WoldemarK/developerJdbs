@@ -18,5 +18,7 @@ public class Specialty{
     private Long id;
     private String name;
 
-
+    public Specialty(String name) {
+        this.name = name;
+    }
 }

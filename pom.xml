@@ -18,14 +18,16 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <org.projectlombok.version>1.18.28</org.projectlombok.version>
-        <org.liquibase.version>4.22.0</org.liquibase.version>
+
+        <org.liquibase.version>4.24.0</org.liquibase.version>
+
         <org.postgresq.versionl>42.6.0</org.postgresq.versionl>
-        <org.assertj.versionl>3.4.1</org.assertj.versionl>
-        <junit.versionl>4.13.1</junit.versionl>
-        <org.mockito.versionl>4.5.1</org.mockito.versionl>
-        <org.junit.platform.versionl>1.9.3</org.junit.platform.versionl>
-        <org.junit.jupiter.versionl>5.8.2</org.junit.jupiter.versionl>
+
+        <org.mockito.versionl>5.3.1</org.mockito.versionl>
+        <junit-jupiter-params.versionl>5.8.2</junit-jupiter-params.versionl>
+        <junit-jupiter-engine.versionl>5.8.1</junit-jupiter-engine.versionl>
     </properties>
 
     <dependencies>
@@ -43,43 +45,28 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>${org.liquibase.version}</version>
+
         </dependency>
+
         <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${org.assertj.versionl}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.versionl}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${org.mockito.versionl}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>${org.junit.platform.versionl}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter-engine.versionl}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${org.junit.jupiter.versionl}</version>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit-jupiter-params.versionl}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>developerJdbs</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${org.mockito.versionl}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
