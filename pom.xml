@@ -23,7 +23,7 @@
 
         <org.liquibase.version>4.24.0</org.liquibase.version>
 
-        <org.postgresq.versionl>42.6.0</org.postgresq.versionl>
+        <org.postgresq.versionl>42.7.2</org.postgresq.versionl>
 
         <org.mockito.versionl>5.3.1</org.mockito.versionl>
         <junit-jupiter-params.versionl>5.8.2</junit-jupiter-params.versionl>
